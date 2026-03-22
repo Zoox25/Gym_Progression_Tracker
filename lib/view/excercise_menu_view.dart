@@ -37,12 +37,12 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
   }
 
   void initliazeInputMaps() {
-    for (String excerciseName in widget.viewmodel.getExcerciseNames()) {
-      if (!excerciseWeights.containsKey(excerciseName)) {
-        excerciseWeights[excerciseName] = "0";
+    for (String excerciseID in widget.viewmodel.getExcerciseIDs()) {
+      if (!excerciseWeights.containsKey(excerciseID)) {
+        excerciseWeights[excerciseID] = "0";
       }
-      if (!excerciseReps.containsKey(excerciseName)) {
-        excerciseReps[excerciseName] = "0";
+      if (!excerciseReps.containsKey(excerciseID)) {
+        excerciseReps[excerciseID] = "0";
       }
     }
   }
@@ -64,20 +64,20 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
     return AnimatedBuilder(
       animation: widget.viewmodel,
       builder: (context, _) {
-        List<String> excerciseNames = widget.viewmodel.getExcerciseNames();
+        List<String> excerciseIDs = widget.viewmodel.getExcerciseIDs();
         initliazeInputMaps();
         return ListView.builder(
-          itemCount: excerciseNames.length,
+          itemCount: excerciseIDs.length,
           itemBuilder: (BuildContext context, int index) {
-            String excerciseName = excerciseNames[index];
+            String excerciseID = excerciseIDs[index];
             return Center(
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecordMenuView(viewmodel: RecordMenuViewmodel(exerciseName: excerciseName, exerciseRepository: locator.get<ExerciseRepository>(), recordRepository: locator.get<RecordRepository>())..init())));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecordMenuView(viewmodel: RecordMenuViewmodel(exerciseName: excerciseID, exerciseRepository: locator.get<ExerciseRepository>(), recordRepository: locator.get<RecordRepository>())..init())));
                     },
-                    child: Text(excerciseName)
+                    child: Text(widget.viewmodel.getExcerciseNameByID(excerciseID)),
                   ),
                   SizedBox(
                     width: 10,
@@ -88,7 +88,7 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
                         hintText: "Weight",
                       ),
                       onChanged: (value) {
-                        excerciseWeights[excerciseName] = value;
+                        excerciseWeights[excerciseID] = value;
                       }
                     ),
                   ),
@@ -101,7 +101,7 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
                         hintText: "Reps",
                       ),
                       onChanged: (value) {
-                        excerciseReps[excerciseName] = value;
+                        excerciseReps[excerciseID] = value;
                       }
                     ),
                   ),
@@ -110,7 +110,7 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
                   ),
                   GestureDetector(
                     onTap: () {
-                      addRecord(excerciseName);
+                      addRecord(excerciseID);
                     },
                     child: Icon(Icons.add),
                   ),

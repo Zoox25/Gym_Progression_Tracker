@@ -18,12 +18,12 @@ class RecordRepository {
     userRepo.saveUser(user);
   }
 
-  void addRecord(String exerciseName, Record_ record) {
+  void addRecord(String exerciseID, Record_ record) {
     final user = userRepo.getUser();
     if (user == null) return;
 
     final exercise = user.excercises.firstWhere(
-      (e) => e.name == exerciseName
+      (e) => e.id == exerciseID
     );
 
     exercise.records.add(record);

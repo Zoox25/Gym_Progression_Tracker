@@ -31,14 +31,24 @@ class ExcerciseMenuViewmodel extends ChangeNotifier implements ActionButtonSubje
     super.dispose();
   }
 
-  List<String> getExcerciseNames() {
-    List<String> excerciseNames = [];
+  String getExcerciseNameByID(String exerciseID) {
 
     for (var excercise in exerciseRepository.getAll()) {
-      excerciseNames.add(excercise.name);
+      if (excercise.id == exerciseID) {
+        return excercise.name;
+      }
+    }
+    return "";
+  }
+
+  List<String> getExcerciseIDs() {
+    List<String> excerciseIDs = [];
+
+    for (var excercise in exerciseRepository.getAll()) {
+      excerciseIDs.add(excercise.id);
     }
 
-    return excerciseNames;
+    return excerciseIDs;
   }
 
   bool addRecord(String excerciseName, String weight, String reps) {
