@@ -19,10 +19,18 @@ class ExerciseRepository {
     userRepo.saveUser(user);
   }
 
-  List<Record_> getAllRecordsByExerciseID(String excerciseName) {
+  void deleteExerciseByID(String excerciseID) {
+    final user = userRepo.getUser();
+    if (user == null) return;
+
+    user.excercises.removeWhere((e) => e.id == excerciseID);
+    userRepo.saveUser(user);
+  }
+
+  List<Record_> getAllRecordsByExerciseID(String excerciseID) {
     List<Excercise> excercises = userRepo.getUser()?.excercises ?? [];
     for (Excercise excercise in excercises) {
-      if (excercise.name == excerciseName) {
+      if (excercise.id == excerciseID) {
         return excercise.records;
       }
     }

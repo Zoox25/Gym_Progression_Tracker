@@ -8,11 +8,12 @@ import 'package:hive_flutter/adapters.dart';
 
 class ExcerciseChartViewmodel extends ChangeNotifier {
   String exerciseName;
+  String exerciseID;
   ExerciseRepository exerciseRepository;
 
   late final StreamSubscription subscription;
 
-  ExcerciseChartViewmodel({required this.exerciseName, required this.exerciseRepository});
+  ExcerciseChartViewmodel({required this.exerciseID, required this.exerciseName, required this.exerciseRepository});
   void init() {
     subscription = Hive.box<User>('user').watch().listen((event) {
       notifyListeners();
@@ -30,6 +31,6 @@ class ExcerciseChartViewmodel extends ChangeNotifier {
   }
 
   List<Record_> getRecords() {
-    return exerciseRepository.getAllRecordsByExerciseID(exerciseName);
+    return exerciseRepository.getAllRecordsByExerciseID(exerciseID);
   }
 }

@@ -22,13 +22,13 @@ class _ExcerciseSelectionViewState extends State<ExcerciseSelectionView> {
       animation: widget.viewmodel,
       builder: (context, _) {
         return ListView.builder(
-          itemCount: widget.viewmodel.getExcerciseNames().length,
+          itemCount: widget.viewmodel.getExcerciseIDs().length,
           itemBuilder: (BuildContext context, int index) {
-            String excerciseName = widget.viewmodel.getExcerciseNames()[index];
-        
+            String exerciseID = widget.viewmodel.getExcerciseIDs()[index];
+            String excerciseName = widget.viewmodel.getExcerciseNameByID(exerciseID);
             return GestureDetector(
               onTap: () {
-                ExcerciseChartViewmodel newViewmodel = ExcerciseChartViewmodel(exerciseName: excerciseName, exerciseRepository: locator.get<ExerciseRepository>())..init();
+                ExcerciseChartViewmodel newViewmodel = ExcerciseChartViewmodel(exerciseID: exerciseID, exerciseName: excerciseName, exerciseRepository: locator.get<ExerciseRepository>())..init();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ExcerciseChartView(viewmodel: newViewmodel)),

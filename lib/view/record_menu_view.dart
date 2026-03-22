@@ -13,11 +13,21 @@ class RecordMenuView extends StatefulWidget {
 }
 
 class _RecordMenuViewState extends State<RecordMenuView> {
-  
   @override
   Widget build(BuildContext context) {
     List<Record_> records = widget.viewmodel.getRecords();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            bool confirmed = await showAreYouSureDialog(context);
+
+            if (confirmed) {
+              widget.viewmodel.deleteExercise();
+              Navigator.pop(context);
+            }
+          },
+          child: Icon(Icons.delete),
+      ),
       appBar: AppBar(
         title: Text(widget.viewmodel.getExcerciseName()),
       ),
@@ -52,4 +62,28 @@ class _RecordMenuViewState extends State<RecordMenuView> {
       ),
     );
   }
+
+  Future<bool> showAreYouSureDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Are you sure?"),
+          content: const Text("Do you really want to delete this Exercise and all corresponding records?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text("Yes"),
+            ),
+          ],
+        );
+      },
+    ) ?? false; // returns false if dialog is dismissed
+  }
+
+
 }

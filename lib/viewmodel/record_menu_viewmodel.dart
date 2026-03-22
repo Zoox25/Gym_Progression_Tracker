@@ -29,12 +29,16 @@ class RecordMenuViewmodel extends ChangeNotifier {
     super.dispose();
   }
 
+  void deleteExercise() {
+    exerciseRepository.deleteExerciseByID(exerciseID);
+  }
+
   String getExcerciseName() {
     return exerciseName;
   }
 
   List<Record_> getRecords() {
-    return exerciseRepository.getAllRecordsByExerciseID(exerciseName);
+    return exerciseRepository.getAllRecordsByExerciseID(exerciseID);
   }
 
   void deleteRecordById(String id) {
