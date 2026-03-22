@@ -30,6 +30,6 @@ class ExcerciseChartViewmodel extends ChangeNotifier {
   }
 
   List<Record_> getRecords() {
-    return exerciseRepository.getAllRecordsByExerciseName(exerciseName);
+    return exerciseRepository.getAllRecordsByExerciseID(exerciseName);
   }
 }

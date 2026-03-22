@@ -19,7 +19,7 @@ class ExerciseRepository {
     userRepo.saveUser(user);
   }
 
-  List<Record_> getAllRecordsByExerciseName(String excerciseName) {
+  List<Record_> getAllRecordsByExerciseID(String excerciseName) {
     List<Excercise> excercises = userRepo.getUser()?.excercises ?? [];
     for (Excercise excercise in excercises) {
       if (excercise.name == excerciseName) {

@@ -70,14 +70,15 @@ class _ExcerciseMenuViewState extends State<ExcerciseMenuView> implements Action
           itemCount: excerciseIDs.length,
           itemBuilder: (BuildContext context, int index) {
             String excerciseID = excerciseIDs[index];
+            String exerciseName = widget.viewmodel.getExcerciseNameByID(excerciseID);
             return Center(
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecordMenuView(viewmodel: RecordMenuViewmodel(exerciseName: excerciseID, exerciseRepository: locator.get<ExerciseRepository>(), recordRepository: locator.get<RecordRepository>())..init())));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RecordMenuView(viewmodel: RecordMenuViewmodel(exerciseID: excerciseID, exerciseName: exerciseName, exerciseRepository: locator.get<ExerciseRepository>(), recordRepository: locator.get<RecordRepository>())..init())));
                     },
-                    child: Text(widget.viewmodel.getExcerciseNameByID(excerciseID)),
+                    child: Text(exerciseName),
                   ),
                   SizedBox(
                     width: 10,

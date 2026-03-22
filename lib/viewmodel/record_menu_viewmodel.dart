@@ -9,12 +9,13 @@ import 'package:gym_progression_tracker/repository/record_repository.dart';
 import 'package:hive/hive.dart';
 
 class RecordMenuViewmodel extends ChangeNotifier {
+  String exerciseID;
   String exerciseName;
   ExerciseRepository exerciseRepository;
   RecordRepository recordRepository;
   late final StreamSubscription subscription;
 
-  RecordMenuViewmodel({required this.exerciseRepository, required this.exerciseName, required this.recordRepository});
+  RecordMenuViewmodel({required this.exerciseRepository, required this.exerciseName, required this.recordRepository, required this.exerciseID});
 
   void init() {
     subscription = Hive.box<User>('user').watch().listen((event) {
@@ -33,7 +34,7 @@ class RecordMenuViewmodel extends ChangeNotifier {
   }
 
   List<Record_> getRecords() {
-    return exerciseRepository.getAllRecordsByExerciseName(exerciseName);
+    return exerciseRepository.getAllRecordsByExerciseID(exerciseName);
   }
 
   void deleteRecordById(String id) {
