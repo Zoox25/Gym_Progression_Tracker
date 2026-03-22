@@ -73,7 +73,12 @@ class _ExcerciseChartViewState extends State<ExcerciseChartView> {
           List<FlSpot> repsSpots = generateRepsSpots(localRecords);
           
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+              left: 8.0,
+              top: 8.0,
+              bottom: 8.0,
+              right: 20,
+              ),
             child: LineChart(
               LineChartData(
                 maxX: ((localRecords.length - 1) * 1.05).floor().toDouble(),
@@ -106,12 +111,19 @@ class _ExcerciseChartViewState extends State<ExcerciseChartView> {
                         final step = (localRecords.length / maxLabels).ceil();
             
                         final isStepFromEnd = (localRecords.length - index - 1) % step == 0;
-            
+
                         if (isStepFromEnd) {
                           final record = localRecords[index];
-                          return Text(DateFormat("yyyy-MM-dd").format(record.date));
+
+                          return SideTitleWidget(
+                            meta: meta,
+                            space: 5,
+                            child: Transform.rotate(
+                              angle: -0.25,
+                              child: Text(DateFormat("yyyy-MM-dd").format(record.date)),
+                            ),
+                          );
                         }
-            
                         return const SizedBox();
                       },
                     ),

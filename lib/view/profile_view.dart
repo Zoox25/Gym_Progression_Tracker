@@ -42,7 +42,9 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 200,
                     child: TextField(
                       controller: nameController,
-                      onChanged: (value) => {widget.viewmodel.setUserName(value)},
+                      onChanged: (value) {
+                        widget.viewmodel.setUserName(value);
+                      },
                       decoration: InputDecoration(
                         hintText: "Name",
                       ),
@@ -52,7 +54,12 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 200,
                     child: TextField(
                       controller: ageController,
-                      onChanged: (value) => {widget.viewmodel.setUserAge(int.parse(value))},
+                      onChanged: (value) {
+                        final parsedValue = int.tryParse(value);
+                        if (parsedValue != null) {
+                          widget.viewmodel.setUserAge(parsedValue);
+                        }
+                      },
                       decoration: InputDecoration(
                         hintText: "Age",
                       ),
@@ -62,7 +69,12 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 200,
                     child: TextField(
                       controller: weightController,
-                      onChanged: (value) => {widget.viewmodel.setUserWeight(double.parse(value))},
+                      onChanged: (value) {
+                        final parsedValue = double.tryParse(value);
+                        if (parsedValue != null) {
+                          widget.viewmodel.setUserWeight(parsedValue);
+                        }
+                      },
                       decoration: InputDecoration(
                         hintText: "Weight",
                       ),
@@ -72,7 +84,12 @@ class _ProfileViewState extends State<ProfileView> {
                     width: 200,
                     child: TextField(
                       controller: bfpController,
-                      onChanged: (value) => {widget.viewmodel.setUserBFP(double.parse(value))},
+                      onChanged: (value) {
+                        final parsedValue = double.tryParse(value);
+                        if (parsedValue != null) {
+                          widget.viewmodel.setUserBFP(parsedValue);
+                        }
+                      },
                       decoration: InputDecoration(
                         hintText: "BodyFat",
                       ),
